@@ -34,7 +34,19 @@ export function ExplorePage() {
   const published = posts.filter((post) => post.status === 'published')
   const filtered = useMemo(() => published.filter((post) => {
     const normalized = query.trim().toLowerCase()
-    const matchesQuery = !normalized || [post.title, post.subtitle, post.excerpt, post.author.name, post.category, ...post.tags].join(' ').toLowerCase().includes(normalized)
+    const searchableText = [
+      post.title,
+      post.subtitle,
+      post.excerpt,
+      post.category,
+      post.author.name,
+      post.author.role,
+      post.author.bio,
+      ...post.tags,
+      ...post.content.map((block) => block.text),
+      ...post.content.flatMap((block) => block.items ?? []),
+    ].join(' ').toLowerCase()
+    const matchesQuery = !normalized || searchableText.includes(normalized)
     return matchesQuery && (category === 'All stories' || post.category === category)
   }).sort((a, b) => {
     if (sort === 'likes') return b.likes - a.likes
