@@ -94,9 +94,9 @@ export function BookmarkButton({ post, compact = false }: { post: Post; compact?
 }
 
 export function PostCard({ post, variant = 'standard', index = 0 }: { post: Post; variant?: 'standard' | 'horizontal' | 'compact'; index?: number }) {
-  return <motion.article className={`post-card post-card-${variant}`} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ duration: 0.35, delay: Math.min(index * 0.04, 0.2) }}>
+  return <motion.article className={`post-card post-card-${variant}`} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} whileHover={{ y: -4 }} viewport={{ once: true, amount: 0.15 }} transition={{ duration: 0.35, delay: Math.min(index * 0.04, 0.2) }}>
     <Link to={`/post/${post.id}`} className="post-image-link">
-      <img src={post.coverImage} alt="" className="post-image" loading={index > 1 ? 'lazy' : 'eager'} />
+      <img src={post.coverImage} alt="" className="post-image" loading={index > 1 ? 'lazy' : 'eager'} /><span className="post-image-index">{String(index + 1).padStart(2, '0')}</span><span className="post-image-corner" aria-hidden="true" />
     </Link>
     <div className="post-card-body">
       <CategoryLabel>{post.category}</CategoryLabel>

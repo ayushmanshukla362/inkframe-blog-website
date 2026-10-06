@@ -1,4 +1,5 @@
 import { ArrowLeft, ArrowRight, Check, Eye, Heart, LayoutGrid, ListFilter, MessageCircle, Plus, Sparkles } from 'lucide-react'
+import { motion } from 'framer-motion'
 import { cloneElement, FormEvent, isValidElement, useEffect, useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { ArticleActions, AuthorBlock, BackToTop, BookmarkButton, Button, CategoryLabel, ConfirmDialog, EmptyState, LikeButton, LoadingState, PostCard, PostMeta, SearchField, SectionHeading, SortSelect } from './components'
@@ -48,9 +49,12 @@ export function ExplorePage() {
   return <main>
     <section className="explore-hero shell">
       <div className="hero-rule"><span>Vol. 01</span><span>Independent writing for curious builders</span><span>Est. 2024</span></div>
-      <div className="hero-copy"><p className="eyebrow accent-eyebrow">A publication by the technical department</p><h1>Stories worth<br /><em>staying for.</em></h1><p className="hero-intro">Thoughtful essays on technology, design, and the work of becoming a better builder.</p></div>
+      <div className="hero-copy"><p className="eyebrow accent-eyebrow">A publication by the technical department</p><h1>Stories worth<br /><em>staying for.</em></h1><p className="hero-intro">Thoughtful essays on technology, design, and the work of becoming a better builder.</p><div className="hero-signature"><span className="hero-signature-dot" /> <span>Read slowly / think deeply</span></div></div>
+      <div className="hero-art" aria-hidden="true"><motion.div className="hero-orbit orbit-one" animate={{ rotate: 360 }} transition={{ duration: 32, repeat: Infinity, ease: 'linear' }} /><motion.div className="hero-orbit orbit-two" animate={{ rotate: -360 }} transition={{ duration: 44, repeat: Infinity, ease: 'linear' }} /><motion.span className="hero-art-label label-top" animate={{ y: [0, -5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}>FIELD<br />NOTES</motion.span><motion.span className="hero-art-label label-bottom" animate={{ y: [0, 5, 0] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}>THOUGHT<br />IN MOTION</motion.span><span className="hero-art-core">I</span></div>
       <div className="hero-aside"><span className="hero-aside-line" /><p>For the curious,<br />the generous,<br />the unfinished.</p><ArrowDownMarker /></div>
     </section>
+
+    <EditorialTicker />
 
     {featured && <section className="featured-section shell"><div className="section-kicker"><span>Editor’s pick</span><span className="line" /></div><article className="featured-story">
       <Link to={`/post/${featured.id}`} className="featured-image-wrap"><img src={featured.coverImage} alt="" className="featured-image" /><span className="image-note">Read the lead story <ArrowRight size={15} /></span></Link>
@@ -67,6 +71,11 @@ export function ExplorePage() {
 }
 
 function ArrowDownMarker() { return <span className="arrow-down-marker">↓</span> }
+
+function EditorialTicker() {
+  const words = ['Ideas', 'Experiments', 'Field notes', 'Open source', 'The long read', 'Ideas']
+  return <div className="editorial-ticker" aria-label="INKFRAME topics"><div className="ticker-track">{words.map((word, index) => <span key={`${word}-${index}`}>{word}<b>✳</b></span>)}</div></div>
+}
 
 export function ArticlePage() {
   const { id } = useParams()
