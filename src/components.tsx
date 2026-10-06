@@ -60,7 +60,7 @@ export function Header() {
 
 export function PageTransition({ children }: { children: React.ReactNode }) {
   const location = useLocation()
-  return <motion.div key={location.pathname + location.search} className="page" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.28, ease: 'easeOut' }}>{children}</motion.div>
+  return <motion.div key={location.pathname} className="page" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.28, ease: 'easeOut' }}>{children}</motion.div>
 }
 
 export function Button({ children, className = '', variant = 'dark', ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: 'dark' | 'outline' | 'quiet' | 'accent' }) {
