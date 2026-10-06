@@ -46,6 +46,7 @@ Open the local URL printed by Vite to view the app.
 The build invokes the TypeScript and Vite package files through Node, avoiding platform-dependent `.bin` executable wrappers.
 
 ## Deploying to Vercel
+https://inkframe-blog-website.vercel.app/
 
 Import the repository into Vercel and use the Vite defaults:
 
